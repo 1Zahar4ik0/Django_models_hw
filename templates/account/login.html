@@ -1,0 +1,29 @@
+{% extends 'flatpages/default.html' %}
+{% load socialaccount %}
+
+{% block title %}Вход{% endblock title %}
+
+{% block content %}
+<h1>Вход</h1>
+
+<form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Войти</button>
+</form>
+
+<p>
+    Нет аккаунта?
+    <a href="{% url 'account_signup' %}">Зарегистрироваться</a>
+</p>
+
+<form method="post" action="{% provider_login_url 'yandex' %}">
+    {% csrf_token %}
+    <button type="submit">Войти через Yandex</button>
+</form>
+
+<form method="post" action="{% provider_login_url 'google' %}">
+    {% csrf_token %}
+    <button type="submit">Войти через Google</button>
+</form>
+{% endblock content %}

@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from news.views import ArticleUpdate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('news/', include('news.urls')),
+    path('articles/<int:pk>/edit/', ArticleUpdate.as_view(), name='article_edit'),
+    path('accounts/', include('allauth.urls')),
 ]

@@ -51,6 +51,12 @@
        {% if paginator.num_pages != page_obj.next_page_number %}
            ...
            <a href="?{% url_replace page=paginator.num_pages %}">{{ paginator.num_pages }}</a>
-       {% endif %}
-   {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if user.is_authenticated and is_not_author %}
+        <br><br>
+        <a href="{% url 'become_author' %}">
+            <button type="button">Стать автором</button>
+        </a>
+    {% endif %}
 {% endblock content %}
