@@ -1,0 +1,47 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}
+Категория {{ category.name }}
+{% endblock title %}
+{% block content %}
+<h1>Категория: {{ category.name }}</h1>
+{% if user.is_authenticated %}
+    {% if is_subscribed %}
+        <p>Вы подписаны на эту категорию.</p>
+    {% else %}
+        <form
+            method="post"
+            action="{% url 'subscribe_to_category' category.pk %}"
+        >
+            {% csrf_token %}
+            <button type="submit">
+                Подписаться
+            </button>
+        </form>
+    {% endif %}
+{% else %}
+    <p>
+        Чтобы подписаться,
+        <a href="{% url 'account_login' %}?next={{ request.path }}">
+            войдите в систему
+        </a>.
+    </p>
+{% endif %}
+<hr>
+{% if category_news %}
+    {% for post in category_news %}
+        <article>
+            <h2>
+                <a href="{% url 'news_detail' post.pk %}">
+                    {{ post.title|censor }}
+                </a>
+            </h2>
+
+            <p>{{ post.created_at|date:"d.m.Y" }}</p>
+            <p>{{ post.text|censor|truncatechars:100 }}</p>
+        </article>
+    {% endfor %}
+{% else %}
+    <p>В этой категории пока нет новостей.</p>
+{% endif %}
+{% endblock content %}

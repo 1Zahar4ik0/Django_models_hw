@@ -7,6 +7,16 @@
 
 {% block content %}
     <h1>{{ post.title|censor }}</h1>
+    <p>
+        Категории:
+        {% for category in post.categories.all %}
+            <a href="{% url 'category_news' category.pk %}">
+                {{ category.name }}
+            </a>{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            без категории
+        {% endfor %}
+    </p>
     <p>{{ post.text|censor }}</p>
     <p>Дата публикации: {{ post.created_at|date:"d.m.Y" }}</p>
 {% endblock content %}

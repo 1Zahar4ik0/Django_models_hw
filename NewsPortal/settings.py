@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.yandex',
+
+    'django_apscheduler',
 
     'news.apps.NewsConfig',
 ]
@@ -152,8 +155,20 @@ ACCOUNT_SIGNUP_FIELDS = [
 ]
 
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 
 ACCOUNT_FORMS = {
     'signup': 'news.forms.CommonSignupForm',
 }
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'Zahar4ik135@yandex.ru'
+EMAIL_HOST_PASSWORD = 'ckcefwudycrltqxp'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
+APSCHEDULER_RUN_NOW_TIMEOUT = 25

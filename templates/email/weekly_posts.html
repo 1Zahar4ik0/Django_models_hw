@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новые статьи за неделю</title>
+</head>
+<body>
+    <h1>Здравствуй, {{ user.username }}!</h1>
+    <p>Новые статьи за неделю в категориях, на которые ты подписан:</p>
+
+    {% for post in posts %}
+        <article>
+            <h2>
+                <a href="{{ base_url }}{% url 'news_detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <p>{{ post.text|truncatechars:100 }}</p>
+            <p>{{ post.created_at|date:"d.m.Y H:i" }}</p>
+        </article>
+        <hr>
+    {% endfor %}
+</body>
+</html>

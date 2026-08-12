@@ -22,6 +22,7 @@
                <td>Название</td>
                <td>Дата</td>
                <td>Описание</td>
+               <td>Категории</td>
            </tr>
 
            {% for post in news %}
@@ -29,6 +30,15 @@
                <td>{{ post.title|censor }}</td>
                <td>{{ post.created_at|date:"d.m.Y" }}</td>
                <td>{{ post.text|censor|slice:":20" }}</td>
+               <td>
+                   {% for category in post.categories.all %}
+                       <a href="{% url 'category_news' category.pk %}">
+                           {{ category.name }}
+                       </a>{% if not forloop.last %}, {% endif %}
+                   {% empty %}
+                       без категории
+                   {% endfor %}
+               </td>
            </tr>
            {% endfor %}
        </table>
