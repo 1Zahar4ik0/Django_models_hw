@@ -7,9 +7,9 @@ class Command(BaseCommand):
     help = 'Немедленно отправляет еженедельную рассылку.'
 
     def handle(self, *args, **options):
-        sent_count = send_weekly_newsletter()
+        result = send_weekly_newsletter.delay()
         self.stdout.write(
             self.style.SUCCESS(
-                f'Еженедельная рассылка выполнена. Писем отправлено: {sent_count}.'
+                f'Еженедельная рассылка поставлена в очередь. Task ID: {result.id}'
             )
         )

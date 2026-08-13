@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.yandex',
 
-    'django_apscheduler',
-
     'news.apps.NewsConfig',
 ]
 
@@ -170,5 +168,16 @@ EMAIL_HOST_USER = 'Zahar4ik135@yandex.ru'
 EMAIL_HOST_PASSWORD = 'ckcefwudycrltqxp'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
-APSCHEDULER_RUN_NOW_TIMEOUT = 25
+CELERY_BROKER_URL = os.getenv(
+    'CELERY_BROKER_URL',
+    'redis://127.0.0.1:6379/0',
+)
+CELERY_RESULT_BACKEND = os.getenv(
+    'CELERY_RESULT_BACKEND',
+    CELERY_BROKER_URL,
+)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Saratov'
+CELERY_ENABLE_UTC = True

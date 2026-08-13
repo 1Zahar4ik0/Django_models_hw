@@ -13,6 +13,8 @@ from .tasks import send_weekly_newsletter
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     DEFAULT_FROM_EMAIL='Zahar4ik135@yandex.ru',
+    CELERY_TASK_ALWAYS_EAGER=True,
+    CELERY_TASK_EAGER_PROPAGATES=True,
 )
 class CategorySubscriptionTests(TestCase):
     def setUp(self):
@@ -121,6 +123,8 @@ class CategorySubscriptionTests(TestCase):
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     DEFAULT_FROM_EMAIL='Zahar4ik135@yandex.ru',
+    CELERY_TASK_ALWAYS_EAGER=True,
+    CELERY_TASK_EAGER_PROPAGATES=True,
 )
 class WelcomeEmailTests(TestCase):
     def test_signup_sends_activation_email_with_username(self):
@@ -155,6 +159,8 @@ class WelcomeEmailTests(TestCase):
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     DEFAULT_FROM_EMAIL='Zahar4ik135@yandex.ru',
+    CELERY_TASK_ALWAYS_EAGER=True,
+    CELERY_TASK_EAGER_PROPAGATES=True,
 )
 class WeeklyNewsletterTests(TestCase):
     def test_weekly_newsletter_contains_only_recent_subscribed_articles(self):
